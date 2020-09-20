@@ -4,28 +4,28 @@ import 'package:app/src/models/video.dart';
 
 
 abstract class PhotoListState extends Equatable {
-  final String status;
-  PhotoListState({this.status});
+  final String mediaType;
+  PhotoListState({this.mediaType});
 
   @override
   List<Object> get props => [];
 }
 
 class InitialList extends PhotoListState {
-  final String status;
-  InitialList({this.status}) : super(status: status);
+  final String mediaType;
+  InitialList({this.mediaType}) : super(mediaType: mediaType);
 }
 
 class ShowList extends PhotoListState {
   final List<Photo> photos;
   final List<Video> videos;
-  ShowList({this.photos, this.videos, String status}) : super(status: status);
+  ShowList({this.photos, this.videos, String status}) : super(mediaType: status);
 }
 
 class Fetching extends PhotoListState {
-  Fetching(String status) : super(status: status);
+  Fetching(String status) : super(mediaType: status);
 }
 
 class FetchingFail extends PhotoListState {
-  FetchingFail(String status) : super(status: status);
+  FetchingFail(String status) : super(mediaType: status);
 }
