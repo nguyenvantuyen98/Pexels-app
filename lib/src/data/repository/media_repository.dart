@@ -5,7 +5,6 @@ import 'package:app/src/models/video.dart';
 enum MediaType { image, video }
 
 class MediaRepository {
-
   MediaRepository.privateConstructor();
 
   static final MediaRepository _instance = MediaRepository.privateConstructor();

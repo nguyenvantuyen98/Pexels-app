@@ -39,10 +39,10 @@ class Typing extends PhotoSearchState {
   Typing();
 }
 
-class PhotoSearchBloc extends Bloc<PhotoSearchEvent, PhotoSearchState>{
+class PhotoSearchBloc extends Bloc<PhotoSearchEvent, PhotoSearchState> {
   PhotoSearchBloc() : super(InitialSearch());
   @override
-  Stream<PhotoSearchState> mapEventToState(PhotoSearchEvent event) async*{
+  Stream<PhotoSearchState> mapEventToState(PhotoSearchEvent event) async* {
     if (event is SearchButton) {
       yield Typing();
     }
@@ -53,7 +53,4 @@ class PhotoSearchBloc extends Bloc<PhotoSearchEvent, PhotoSearchState>{
       print("Submitted with keyWord = ${event.keyWord}");
     }
   }
-
-
-
 }

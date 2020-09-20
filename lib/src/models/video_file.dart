@@ -3,11 +3,11 @@ import 'package:equatable/equatable.dart';
 class VideoFile extends Equatable {
   VideoFile(
       {this.id,
-        this.quality,
-        this.file_type,
-        this.width,
-        this.height,
-        this.link});
+      this.quality,
+      this.file_type,
+      this.width,
+      this.height,
+      this.link});
   final int id;
   final String quality;
   final String file_type;

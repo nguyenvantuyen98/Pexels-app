@@ -3,10 +3,9 @@ import 'package:app/src/models/image.dart';
 import 'package:dio/dio.dart';
 
 class AppNetwork {
-
-  static const authorization ='563492ad6f9170000100000156d5de70ea134a2c86369c73c307839c';
-  var dio = Dio()
-      ..options.headers['Authorization'] = authorization;
+  static const authorization =
+      '563492ad6f9170000100000156d5de70ea134a2c86369c73c307839c';
+  var dio = Dio()..options.headers['Authorization'] = authorization;
 
   Future<Map<String, dynamic>> _sendRequest(String url) async {
     try {
@@ -61,6 +60,5 @@ class AppNetwork {
     return videos;
   }
 }
-
 
 final AppNetwork appNetwork = AppNetwork();

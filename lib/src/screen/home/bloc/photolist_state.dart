@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:app/src/models/image.dart';
 import 'package:app/src/models/video.dart';
 
-
 abstract class PhotoListState extends Equatable {
   final String mediaType;
   PhotoListState({this.mediaType});
@@ -19,7 +18,8 @@ class InitialList extends PhotoListState {
 class ShowList extends PhotoListState {
   final List<Photo> photos;
   final List<Video> videos;
-  ShowList({this.photos, this.videos, String status}) : super(mediaType: status);
+  ShowList({this.photos, this.videos, String status})
+      : super(mediaType: status);
 }
 
 class Fetching extends PhotoListState {

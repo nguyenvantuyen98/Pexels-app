@@ -3,7 +3,6 @@ import 'package:app/src/data/repository/media_repository.dart';
 import 'package:app/src/models/image.dart';
 import 'package:app/src/models/video.dart';
 
-
 /******************************************************************************************
  * 
  * PHOTO LIST EVENT
@@ -54,5 +53,3 @@ class FetchData extends PhotoListEvent {
  * SEARCH EVENT
  * 
  ******************************************************************************************/
-
-
