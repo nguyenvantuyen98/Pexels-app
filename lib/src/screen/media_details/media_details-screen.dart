@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PhotoDetail extends StatelessWidget {
+class MediaDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +11,7 @@ class PhotoDetail extends StatelessWidget {
             Navigator.popAndPushNamed(context, 'home');
           },
         ),
-        title: Text('this is photo_details screen'),
+        title: Text('this is media_details screen'),
       ),
     );
   }

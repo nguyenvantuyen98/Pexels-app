@@ -43,10 +43,6 @@ class _ListMediaState extends State<ListMedia> {
     }
   }
 
-  void onPageChanged(int mediaType) {
-    _mediaListBloc.add(MediaTypeChanged(mediaType: mediaType));
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MediaListBloc, MediaListState>(
@@ -80,7 +76,7 @@ class _ListMediaState extends State<ListMedia> {
       imagesList.add(
         GestureDetector(
           onTap: () {
-            Navigator.pushReplacementNamed(context, 'photoDetail');
+            Navigator.pushReplacementNamed(context, 'mediaDetail');
           },
           child: Container(
             child: Card(
@@ -105,7 +101,7 @@ class _ListMediaState extends State<ListMedia> {
       videosList.add(
         GestureDetector(
           onTap: () {
-            Navigator.pushReplacementNamed(context, 'videoDetail');
+            Navigator.pushReplacementNamed(context, 'mediaDetail');
           },
           child: Container(
             child: Card(

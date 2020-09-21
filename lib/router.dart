@@ -1,7 +1,8 @@
 import 'package:app/src/screen/home/screen/home_screen.dart';
-import 'package:app/src/screen/photo_details/photo_details_screen.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+
+import 'src/screen/media_details/media_details-screen.dart';
 
 class FluroRouter {
   static Router router = Router();
@@ -9,11 +10,11 @@ class FluroRouter {
   static Handler _homeHandler = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           HomeScreen());
-  static Handler _photoDetailHandler = Handler(
+  static Handler _mediaDetailHandler = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          PhotoDetail());
+          MediaDetail());
   static void setupRouter() {
     router.define('home', handler: _homeHandler);
-    router.define('photoDetail', handler: _photoDetailHandler);
+    router.define('mediaDetail', handler: _mediaDetailHandler);
   }
 }
