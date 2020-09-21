@@ -12,7 +12,7 @@ const videoCode = 1;
 class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
   MediaRepository mediaRepository = MediaRepository();
 
-  int mediaType = 0;
+  int mediaType = photoCode;
   List<Photo> photos = [];
   List<Video> videos = [];
   int imagePage = 0;
@@ -41,7 +41,6 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
     }
     if (event is MediaTypeChanged) {
       mediaType = event.mediaType;
-
       yield ShowList(photos: photos, videos: videos, mediaType: mediaType);
     }
   }
