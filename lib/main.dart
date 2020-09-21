@@ -1,7 +1,8 @@
+import 'package:app/router.dart';
 import 'package:flutter/material.dart';
-import 'package:app/src/screen/home/screen/home_screen.dart';
 
 void main() {
+  FluroRouter.setupRouter();
   runApp(MyApp());
 }
 
@@ -10,7 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Pexels',
-      home: HomeScreen(),
+      initialRoute: 'home',
+      onGenerateRoute: FluroRouter.router.generator,
     );
   }
 }
