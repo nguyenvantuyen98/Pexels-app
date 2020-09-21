@@ -28,7 +28,7 @@ class MediaRepository {
   }
 
   Future<List> fetchData({int mediaType, int page, String keyWord}) async {
-    print('fetchedData $mediaType, $page, $keyWord');
+    // print('fetchedData $mediaType, $page, $keyWord');
     if (mediaType == 0 && keyWord != '') {
       return await searchImage(keyWord, page);
     } else if (mediaType == 1 && keyWord != '') {
