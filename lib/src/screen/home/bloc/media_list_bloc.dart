@@ -59,11 +59,14 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
       photos += await mediaRepository.fetchData(
           mediaType: photoCode, page: imagePage + 1, keyWord: keyWord);
       imagePage += 1;
+      print('photos.length = ${photos.length}');
     } else {
       videos += await mediaRepository.fetchData(
           mediaType: videoCode, page: videoPage + 1, keyWord: keyWord);
       videoPage += 1;
+      print('videos.length = ${videos.length}');
     }
+
     yield ShowListState(photos: photos, videos: videos, mediaType: mediaType);
   }
 

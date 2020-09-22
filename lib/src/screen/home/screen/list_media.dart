@@ -18,7 +18,6 @@ class ListMedia extends StatefulWidget {
 
 class _ListMediaState extends State<ListMedia> {
   final _scrollController = ScrollController();
-  final _scrollThreshold = 200.0;
   MediaListBloc _mediaListBloc;
 
   @override
@@ -37,7 +36,7 @@ class _ListMediaState extends State<ListMedia> {
   void _onScroll() {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
-    if (maxScroll - currentScroll <= _scrollThreshold) {
+    if (currentScroll > maxScroll * 0.9) {
       _mediaListBloc.add(FetchDataEvent());
     }
   }
@@ -75,8 +74,7 @@ class _ListMediaState extends State<ListMedia> {
       imagesList.add(
         GestureDetector(
           onTap: () {
-            Navigator.popAndPushNamed(
-                context, 'mediaDetail/$photoCode/${photo.id}');
+            Navigator.pushNamed(context, 'mediaDetail/$photoCode/${photo.id}');
           },
           child: Container(
             child: Card(
@@ -101,8 +99,7 @@ class _ListMediaState extends State<ListMedia> {
       videosList.add(
         GestureDetector(
           onTap: () {
-            Navigator.popAndPushNamed(
-                context, 'mediaDetail/$videoCode/${video.id}');
+            Navigator.pushNamed(context, 'mediaDetail/$videoCode/${video.id}');
           },
           child: Container(
             child: Card(
