@@ -41,6 +41,15 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
     }
     if (event is MediaTypeChangedEvent) {
       mediaType = event.mediaType;
+      if (mediaType == videoCode) {
+        if (videos.isEmpty) {
+          yield FetchingState();
+          videos += await mediaRepository.fetchData(
+              mediaType: videoCode, page: videoPage + 1, keyWord: keyWord);
+          videoPage += 1;
+          print('videos.length = ${videos.length}');
+        }
+      }
       yield ShowListState(photos: photos, videos: videos, mediaType: mediaType);
     }
   }

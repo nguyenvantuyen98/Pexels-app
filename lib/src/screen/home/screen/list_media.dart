@@ -11,6 +11,7 @@ class ListMedia extends StatefulWidget {
   ListMedia(
     this.mediaType,
   );
+
   @override
   _ListMediaState createState() => _ListMediaState();
 }
