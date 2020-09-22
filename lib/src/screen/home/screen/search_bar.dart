@@ -34,16 +34,24 @@ AppBar buildSearchBar(TextEditingController textEditingControler) {
                 child: Stack(
                   alignment: const Alignment(1.0, 1.0),
                   children: [
-                    TextField(
-                      controller: textEditingControler,
-                      autofocus: true,
-                      textInputAction: TextInputAction.search,
-                      onSubmitted: (value) {
-                        BlocProvider.of<MediaListBloc>(context)
-                            .add(SearchSubmitEvent(keyWord: value));
-                        BlocProvider.of<PhotoSearchBloc>(context)
-                            .add(SubmitEvent(keyWord: value));
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.green),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        controller: textEditingControler,
+                        autofocus: true,
+                        textInputAction: TextInputAction.search,
+                        onSubmitted: (value) {
+                          BlocProvider.of<MediaListBloc>(context)
+                              .add(SearchSubmitEvent(keyWord: value));
+                          BlocProvider.of<PhotoSearchBloc>(context)
+                              .add(SubmitEvent(keyWord: value));
+                        },
+                      ),
                     ),
                     IconButton(
                       onPressed: () => textEditingControler.clear(),

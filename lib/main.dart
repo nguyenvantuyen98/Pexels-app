@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Pexels',
       initialRoute: 'home',
       onGenerateRoute: FluroRouter.router.generator,
