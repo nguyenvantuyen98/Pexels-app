@@ -6,6 +6,7 @@ import '../bloc/search_bloc.dart';
 
 AppBar buildSearchBar(TextEditingController textEditingControler) {
   return AppBar(
+    backgroundColor: Colors.white,
     title: BlocBuilder<PhotoSearchBloc, PhotoSearchState>(
       builder: (BuildContext context, state) {
         if (state is InitialSearchState) {
@@ -15,7 +16,10 @@ AppBar buildSearchBar(TextEditingController textEditingControler) {
                 child: Text(''),
               ),
               IconButton(
-                icon: Icon(Icons.search),
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ),
                 onPressed: () => BlocProvider.of<PhotoSearchBloc>(context)
                     .add(SearchButtonEvent()),
               ),
@@ -26,7 +30,10 @@ AppBar buildSearchBar(TextEditingController textEditingControler) {
           return Row(
             children: [
               IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
                 onPressed: () => BlocProvider.of<PhotoSearchBloc>(context)
                     .add(BackArrowEvent()),
               ),
@@ -36,9 +43,13 @@ AppBar buildSearchBar(TextEditingController textEditingControler) {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.green),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       child: TextField(
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
                         decoration: InputDecoration(
                           border: InputBorder.none,
                         ),
@@ -55,7 +66,10 @@ AppBar buildSearchBar(TextEditingController textEditingControler) {
                     ),
                     IconButton(
                       onPressed: () => textEditingControler.clear(),
-                      icon: Icon(Icons.clear),
+                      icon: Icon(
+                        Icons.clear,
+                        color: Colors.black,
+                      ),
                     ),
                   ],
                 ),
@@ -67,7 +81,10 @@ AppBar buildSearchBar(TextEditingController textEditingControler) {
           return Row(
             children: [
               IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ),
                   onPressed: () => {
                         BlocProvider.of<MediaListBloc>(context)
                             .add(BackToShowListEvent()),
@@ -76,12 +93,20 @@ AppBar buildSearchBar(TextEditingController textEditingControler) {
                       }),
               Expanded(
                 child: GestureDetector(
-                  child: Text('${state.keyWord}'),
+                  child: Text(
+                    '${state.keyWord}',
+                    style: TextStyle(color: Colors.black),
+                  ),
                   onTap: () => BlocProvider.of<PhotoSearchBloc>(context)
                       .add(SearchButtonEvent()),
                 ),
               ),
-              IconButton(icon: Icon(Icons.search), onPressed: () {}),
+              IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {}),
             ],
           );
         } else {
