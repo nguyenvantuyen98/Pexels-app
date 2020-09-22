@@ -42,3 +42,16 @@ class FetchDataEvent extends MediaListEvent {
   @override
   List<Object> get props => [];
 }
+
+class SearchSubmitEvent extends MediaListEvent {
+  final String keyWord;
+  SearchSubmitEvent({this.keyWord});
+  @override
+  List<Object> get props => [keyWord];
+}
+
+class BackToShowListEvent extends MediaListEvent {
+  BackToShowListEvent();
+  @override
+  List<Object> get props => [];
+}

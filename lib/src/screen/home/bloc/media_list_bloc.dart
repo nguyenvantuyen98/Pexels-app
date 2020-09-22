@@ -29,27 +29,71 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
         photos += await mediaRepository.fetchData(
             mediaType: photoCode, page: imagePage + 1, keyWord: keyWord);
         imagePage += 1;
-        print('photos.length = ${photos.length}');
       } else {
         videos += await mediaRepository.fetchData(
             mediaType: videoCode, page: videoPage + 1, keyWord: keyWord);
         videoPage += 1;
-        print('videos.length = ${videos.length}');
       }
 
       yield ShowListState(photos: photos, videos: videos, mediaType: mediaType);
     }
     if (event is MediaTypeChangedEvent) {
       mediaType = event.mediaType;
-      if (mediaType == videoCode) {
+      print(mediaType);
+      if (mediaType == photoCode) {
+        if (photos.isEmpty) {
+          yield FetchingState();
+          photos += await mediaRepository.fetchData(
+              mediaType: photoCode, page: imagePage + 1, keyWord: keyWord);
+          imagePage += 1;
+          print('photos.length = ${photos.length}');
+        }
+      } else {
         if (videos.isEmpty) {
           yield FetchingState();
           videos += await mediaRepository.fetchData(
               mediaType: videoCode, page: videoPage + 1, keyWord: keyWord);
           videoPage += 1;
-          print('videos.length = ${videos.length}');
         }
       }
+      yield ShowListState(photos: photos, videos: videos, mediaType: mediaType);
+    }
+    if (event is SearchSubmitEvent) {
+      keyWord = event.keyWord;
+      photos = [];
+      videos = [];
+      imagePage = 0;
+      videoPage = 0;
+      yield FetchingState();
+      if (mediaType == photoCode) {
+        photos += await mediaRepository.fetchData(
+            mediaType: photoCode, page: imagePage + 1, keyWord: keyWord);
+        imagePage += 1;
+      } else {
+        videos += await mediaRepository.fetchData(
+            mediaType: videoCode, page: videoPage + 1, keyWord: keyWord);
+        videoPage += 1;
+      }
+      yield ShowListState(photos: photos, videos: videos, mediaType: mediaType);
+    }
+
+    if (event is BackToShowListEvent) {
+      photos = [];
+      videos = [];
+      imagePage = 0;
+      videoPage = 0;
+      keyWord = '';
+      yield FetchingState();
+      if (mediaType == photoCode) {
+        photos += await mediaRepository.fetchData(
+            mediaType: photoCode, page: imagePage + 1, keyWord: keyWord);
+        imagePage += 1;
+      } else {
+        videos += await mediaRepository.fetchData(
+            mediaType: videoCode, page: videoPage + 1, keyWord: keyWord);
+        videoPage += 1;
+      }
+
       yield ShowListState(photos: photos, videos: videos, mediaType: mediaType);
     }
   }

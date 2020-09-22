@@ -44,7 +44,6 @@ class _ListMediaState extends State<ListMedia> {
 
   @override
   Widget build(BuildContext context) {
-    print('mediaType: ${widget.mediaType}');
     return BlocBuilder<MediaListBloc, MediaListState>(
       builder: (BuildContext context, state) {
         if (state is InitialListState) {
