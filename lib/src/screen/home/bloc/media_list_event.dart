@@ -6,32 +6,38 @@ abstract class MediaListEvent extends Equatable {
   MediaListEvent();
 }
 
-class MediaTypeChanged extends MediaListEvent {
+class InitialMediaEvent extends MediaListEvent {
+  InitialMediaEvent();
+  @override
+  List<Object> get props => [];
+}
+
+class MediaTypeChangedEvent extends MediaListEvent {
   final int mediaType;
-  MediaTypeChanged({this.mediaType});
+  MediaTypeChangedEvent({this.mediaType});
 
   @override
   List<Object> get props => [mediaType];
 }
 
-class ChoosePhoto extends MediaListEvent {
+class ChoosePhotoEvent extends MediaListEvent {
   final Photo photo;
-  ChoosePhoto({this.photo});
+  ChoosePhotoEvent({this.photo});
 
   @override
   List<Object> get props => [photo];
 }
 
-class ChooseVideo extends MediaListEvent {
+class ChooseVideoEvent extends MediaListEvent {
   final Video video;
-  ChooseVideo({this.video});
+  ChooseVideoEvent({this.video});
 
   @override
   List<Object> get props => [video];
 }
 
-class FetchData extends MediaListEvent {
-  FetchData();
+class FetchDataEvent extends MediaListEvent {
+  FetchDataEvent();
 
   @override
   List<Object> get props => [];

@@ -9,16 +9,16 @@ class Photo extends Equatable {
       this.height,
       this.url,
       this.photographer,
-      this.photographer_url,
-      this.photographer_id,
+      this.photographerUrl,
+      this.photographerId,
       this.src});
   final int id;
   final int width;
   final int height;
   final String url;
   final String photographer;
-  final String photographer_url;
-  final int photographer_id;
+  final String photographerUrl;
+  final int photographerId;
   final ImageSrc src;
 
   factory Photo.fromMap(Map<String, dynamic> map) => Photo(
@@ -27,8 +27,8 @@ class Photo extends Equatable {
       height: map['height'],
       url: map['url'],
       photographer: map['photographer'],
-      photographer_url: map['photographer_url'],
-      photographer_id: map['photographer_id'],
+      photographerUrl: map['photographer_url'],
+      photographerId: map['photographer_id'],
       src: ImageSrc.fromMap(map['src']));
 
   @override
@@ -38,8 +38,8 @@ class Photo extends Equatable {
         height,
         url,
         photographer,
-        photographer_url,
-        photographer_id,
+        photographerUrl,
+        photographerId,
         src
       ];
 
@@ -50,7 +50,7 @@ class Photo extends Equatable {
   height: $height,
   url: $url,
   photographer: $photographer,
-  photographer_url: $photographer_url,
-  photographer_id: $photographer_id,
+  photographer_url: $photographerUrl,
+  photographer_id: $photographerId,
   src: $src''';
 }

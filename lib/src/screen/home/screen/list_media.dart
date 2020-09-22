@@ -37,22 +37,23 @@ class _ListMediaState extends State<ListMedia> {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll <= _scrollThreshold) {
-      _mediaListBloc.add(FetchData());
+      _mediaListBloc.add(FetchDataEvent());
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    print('mediaType: ${widget.mediaType}');
     return BlocBuilder<MediaListBloc, MediaListState>(
       builder: (BuildContext context, state) {
-        if (state is InitialList) {
-          _mediaListBloc.add(FetchData());
+        if (state is InitialListState) {
+          _mediaListBloc.add(FetchDataEvent());
           return Container();
         }
-        if (state is Fetching) {
+        if (state is FetchingState) {
           return Center(child: CircularProgressIndicator());
         }
-        if (state is ShowList) {
+        if (state is ShowListState) {
           return GridView.extent(
             controller: _scrollController,
             maxCrossAxisExtent: 650,
@@ -109,7 +110,7 @@ class _ListMediaState extends State<ListMedia> {
                   Radius.circular(10.0),
                 ),
               ),
-              child: Image.network(video.video_pictures[0].picture,
+              child: Image.network(video.videoPictures[0].picture,
                   fit: BoxFit.cover),
             ),
           ),
@@ -130,7 +131,7 @@ class PageViewMedia extends StatelessWidget {
       controller: _pageController,
       onPageChanged: (int page) {
         BlocProvider.of<MediaListBloc>(context)
-            .add(MediaTypeChanged(mediaType: page));
+            .add(MediaTypeChangedEvent(mediaType: page));
       },
       children: [
         ListMedia(photoCode),

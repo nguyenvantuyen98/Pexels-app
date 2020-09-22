@@ -12,8 +12,8 @@ class Video extends Equatable {
       this.image,
       this.duration,
       this.user,
-      this.video_files,
-      this.video_pictures});
+      this.videoFiles,
+      this.videoPictures});
 
   final int id;
   final int width;
@@ -22,8 +22,8 @@ class Video extends Equatable {
   final String image;
   final int duration;
   final VideoUser user;
-  final List<VideoFile> video_files;
-  final List<VideoPicture> video_pictures;
+  final List<VideoFile> videoFiles;
+  final List<VideoPicture> videoPictures;
 
   factory Video.fromMap(Map<String, dynamic> map) {
     var files = <VideoFile>[];
@@ -42,8 +42,8 @@ class Video extends Equatable {
         image: map['image'],
         duration: map['duration'],
         user: VideoUser.fromMap(map['user']),
-        video_files: files,
-        video_pictures: pictures);
+        videoFiles: files,
+        videoPictures: pictures);
   }
 
   @override
@@ -55,8 +55,8 @@ class Video extends Equatable {
         image,
         duration,
         user,
-        video_files,
-        video_pictures
+        videoFiles,
+        videoPictures
       ];
 
   @override
@@ -68,7 +68,7 @@ class Video extends Equatable {
   image: $image,
   duration:$duration,
   user: $user,
-  video_files: $video_files,
-  video_pictures: $video_pictures
+  video_files: $videoFiles,
+  video_pictures: $videoPictures
   ''';
 }

@@ -45,7 +45,7 @@ class MediaDetail extends StatelessWidget {
           if (state.mediaType == photoCode) {
             return Image.network(state.photo.src.large);
           } else {
-            return Image.network(state.video.video_pictures[0].picture);
+            return Image.network(state.video.videoPictures[0].picture);
           }
         } else {
           return Text('Something wrong');

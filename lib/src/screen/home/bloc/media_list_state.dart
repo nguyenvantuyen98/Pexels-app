@@ -9,19 +9,19 @@ abstract class MediaListState extends Equatable {
   List<Object> get props => [];
 }
 
-class InitialList extends MediaListState {}
+class InitialListState extends MediaListState {}
 
-class ShowList extends MediaListState {
+class ShowListState extends MediaListState {
   final List<Photo> photos;
   final List<Video> videos;
   final int mediaType;
-  ShowList({this.photos, this.videos, this.mediaType});
+  ShowListState({this.photos, this.videos, this.mediaType});
 }
 
-class Fetching extends MediaListState {
-  Fetching();
+class FetchingState extends MediaListState {
+  FetchingState();
 }
 
-class FetchingFail extends MediaListState {
-  FetchingFail();
+class FetchingFailState extends MediaListState {
+  FetchingFailState();
 }
