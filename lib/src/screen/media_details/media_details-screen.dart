@@ -28,7 +28,10 @@ class MediaDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
       body: BlocBuilder<MediaDetailBloc, MediaDetailState>(
           builder: (BuildContext context, state) {
         if (state is InitialMediaDetailState) {
@@ -60,13 +63,17 @@ class PhotoShowScreen extends StatelessWidget {
   PhotoShowScreen({this.state});
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      Center(child: Image.network(state.photo.src.large)),
-      SizedBox(
-        height: 10,
-      ),
-      Column(children: _builPhotoList(state.relatedPhoto, context))
-    ]);
+    return SingleChildScrollView(
+      child: Column(children: [
+        Center(child: Image.network(state.photo.src.large)),
+        SizedBox(
+          height: 10,
+        ),
+        SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(children: _builPhotoList(state.relatedPhoto, context)))
+      ]),
+    );
   }
 
   List<Widget> _builPhotoList(List<Photo> photos, BuildContext context) {
@@ -75,7 +82,8 @@ class PhotoShowScreen extends StatelessWidget {
       imagesList.add(
         GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, 'mediaDetail/$photoCode/${photo.id}');
+            Navigator.popAndPushNamed(
+                context, 'mediaDetail/$photoCode/${photo.id}');
           },
           child: Container(
             child: Card(
@@ -85,7 +93,7 @@ class PhotoShowScreen extends StatelessWidget {
                   Radius.circular(10.0),
                 ),
               ),
-              child: Image.network(photo.src.large, fit: BoxFit.cover),
+              child: Image.network(photo.src.small, fit: BoxFit.cover),
             ),
           ),
         ),

@@ -1,5 +1,4 @@
 import 'package:app/src/screen/home/bloc/loading_bloc.dart';
-import 'package:app/src/screen/media_details/bloc/media_detail_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/image.dart';
