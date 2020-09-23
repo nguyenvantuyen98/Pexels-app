@@ -8,9 +8,7 @@ import '../bloc/media_list_state.dart';
 
 class ListMedia extends StatefulWidget {
   final int mediaType;
-  ListMedia(
-    this.mediaType,
-  );
+  ListMedia({this.mediaType, Key key}) : super(key: key);
 
   @override
   _ListMediaState createState() => _ListMediaState();
@@ -120,22 +118,31 @@ class _ListMediaState extends State<ListMedia> {
   }
 }
 
-class PageViewMedia extends StatelessWidget {
+class PageViewMedia extends StatefulWidget {
   final PageController _pageController;
 
   const PageViewMedia(this._pageController);
   @override
+  _PageViewMediaState createState() => _PageViewMediaState();
+}
+
+class _PageViewMediaState extends State<PageViewMedia> {
+  final PageStorageBucket _bucket = PageStorageBucket();
+  @override
   Widget build(BuildContext context) {
-    return PageView(
-      controller: _pageController,
-      onPageChanged: (int page) {
-        BlocProvider.of<MediaListBloc>(context)
-            .add(MediaTypeChangedEvent(mediaType: page));
-      },
-      children: [
-        ListMedia(photoCode),
-        ListMedia(videoCode),
-      ],
+    return PageStorage(
+      bucket: _bucket,
+      child: PageView(
+        controller: widget._pageController,
+        onPageChanged: (int page) {
+          BlocProvider.of<MediaListBloc>(context)
+              .add(MediaTypeChangedEvent(mediaType: page));
+        },
+        children: [
+          ListMedia(mediaType: photoCode, key: PageStorageKey('photo')),
+          ListMedia(mediaType: videoCode, key: PageStorageKey('video')),
+        ],
+      ),
     );
   }
 }
