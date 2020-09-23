@@ -1,7 +1,7 @@
 import 'package:app/src/screen/home/screen/home_screen.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'src/screen/media_details/media_details-screen.dart';
+import 'src/screen/media_details/screen/media_details-screen.dart';
 
 class FluroRouter {
   static Router router = Router();

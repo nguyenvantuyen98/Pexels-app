@@ -18,6 +18,7 @@ dependencies:
   flutter_bloc: ^6.0.5
   fluro: ^1.6.3
   video_player: ^0.10.12+3
+  rubber: ^0.4.0
 
 dev_dependencies:
   flutter_test:
