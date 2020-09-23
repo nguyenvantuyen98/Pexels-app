@@ -1,3 +1,5 @@
+import 'package:app/src/screen/home/bloc/loading_bloc.dart';
+import 'package:app/src/screen/media_details/bloc/media_detail_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/image.dart';
@@ -17,12 +19,14 @@ class ListMedia extends StatefulWidget {
 class _ListMediaState extends State<ListMedia> {
   final _scrollController = ScrollController();
   MediaListBloc _mediaListBloc;
+  LoadingBloc _loadingBloc;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
     _mediaListBloc = BlocProvider.of<MediaListBloc>(context);
+    _loadingBloc = BlocProvider.of<LoadingBloc>(context);
   }
 
   @override
@@ -36,6 +40,7 @@ class _ListMediaState extends State<ListMedia> {
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll < 200) {
       _mediaListBloc.add(FetchDataEvent());
+      _loadingBloc.add(LoadingMoreDataEvent());
     }
   }
 
@@ -45,19 +50,20 @@ class _ListMediaState extends State<ListMedia> {
       builder: (BuildContext context, state) {
         if (state is InitialListState) {
           _mediaListBloc.add(FetchDataEvent());
-          return Container();
+          return Center(child: CircularProgressIndicator());
         }
         if (state is FetchingState) {
           return Center(child: CircularProgressIndicator());
         }
         if (state is ShowListState) {
-          return GridView.extent(
-            controller: _scrollController,
-            maxCrossAxisExtent: 650,
-            children: widget.mediaType == photoCode
-                ? _builPhotoList(state.photos)
-                : _buildVideoList(state.videos),
-          );
+          return CustomScrollView(controller: _scrollController, slivers: [
+            SliverGrid.extent(
+              maxCrossAxisExtent: 650,
+              children: widget.mediaType == photoCode
+                  ? _builPhotoList(state.photos)
+                  : _buildVideoList(state.videos),
+            ),
+          ]);
         }
         return Center(
           child: Text('Something wrong'),

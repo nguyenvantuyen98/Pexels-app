@@ -37,8 +37,14 @@ class ShowMediaState extends MediaDetailState {
   final int mediaType;
   final Photo photo;
   final Video video;
-
-  ShowMediaState({this.mediaType, this.photo, this.video});
+  final List<Photo> relatedPhoto;
+  final List<Video> relatedVideo;
+  ShowMediaState(
+      {this.mediaType,
+      this.photo,
+      this.video,
+      this.relatedPhoto,
+      this.relatedVideo});
 }
 
 class MediaDetailBloc extends Bloc<MediaDetailEvent, MediaDetailState> {
@@ -51,10 +57,14 @@ class MediaDetailBloc extends Bloc<MediaDetailEvent, MediaDetailState> {
       yield LoadingMediaState();
       if (event.mediaType == '$photoCode') {
         Photo photo = await mediaRepository.getImage(event.mediaKey);
-        yield ShowMediaState(mediaType: photoCode, photo: photo);
+        List<Photo> relatedPhoto = await mediaRepository.relatedImage(photo);
+        yield ShowMediaState(
+            mediaType: photoCode, photo: photo, relatedPhoto: relatedPhoto);
       } else {
         Video video = await mediaRepository.getVideo(event.mediaKey);
-        yield ShowMediaState(mediaType: videoCode, video: video);
+        List<Video> relatedVideo = await mediaRepository.relatedVideo(video);
+        yield ShowMediaState(
+            mediaType: videoCode, video: video, relatedVideo: relatedVideo);
       }
     }
   }

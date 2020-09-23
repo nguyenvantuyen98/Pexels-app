@@ -1,3 +1,4 @@
+import 'package:app/src/models/image.dart';
 import 'package:app/src/screen/home/bloc/media_list_bloc.dart';
 import 'package:app/src/screen/media_details/bloc/media_detail_bloc.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,9 @@ class MediaDetail extends StatelessWidget {
         }
         if (state is ShowMediaState) {
           if (state.mediaType == photoCode) {
-            return Center(child: Image.network(state.photo.src.large));
+            return PhotoShowScreen(
+              state: state,
+            );
           } else {
             return VideoPlayerScreen(video: state.video.videoFiles[0].link);
           }
@@ -49,6 +52,46 @@ class MediaDetail extends StatelessWidget {
         }
       }),
     );
+  }
+}
+
+class PhotoShowScreen extends StatelessWidget {
+  final ShowMediaState state;
+  PhotoShowScreen({this.state});
+  @override
+  Widget build(BuildContext context) {
+    return ListView(children: [
+      Center(child: Image.network(state.photo.src.large)),
+      SizedBox(
+        height: 10,
+      ),
+      Column(children: _builPhotoList(state.relatedPhoto, context))
+    ]);
+  }
+
+  List<Widget> _builPhotoList(List<Photo> photos, BuildContext context) {
+    List<GestureDetector> imagesList = [];
+    for (Photo photo in photos) {
+      imagesList.add(
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, 'mediaDetail/$photoCode/${photo.id}');
+          },
+          child: Container(
+            child: Card(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
+              ),
+              child: Image.network(photo.src.large, fit: BoxFit.cover),
+            ),
+          ),
+        ),
+      );
+    }
+    return imagesList;
   }
 }
 
