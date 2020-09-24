@@ -1,3 +1,4 @@
+import 'package:app/src/data/database/app_database.dart';
 import 'package:app/src/data/network/app_network.dart';
 import 'package:app/src/models/image.dart';
 import 'package:app/src/models/video.dart';
@@ -61,5 +62,17 @@ class MediaRepository {
 
   Future<Video> getVideo(String videoKey) {
     return appNetwork.getVideo(videoKey);
+  }
+
+  Future<void> insert(String id) {
+    return appDatabase.insertMediaData(id);
+  }
+
+  Future<void> delete(String id) {
+    return appDatabase.deleteMediaData(id);
+  }
+
+  Future<bool> isContain(String id) {
+    return appDatabase.isContain(id);
   }
 }

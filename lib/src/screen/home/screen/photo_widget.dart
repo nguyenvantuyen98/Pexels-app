@@ -54,8 +54,21 @@ class PhotoWidget extends StatelessWidget {
                   bottomLeft: Radius.circular(10),
                 ),
               ),
-              height: 100,
-              child: Container(),
+              height: 70,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 20, left: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      photo.photographer,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Icon(Icons.favorite_border)
+                  ],
+                ),
+              ),
             ),
           ),
         ],

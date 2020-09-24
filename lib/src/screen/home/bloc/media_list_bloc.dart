@@ -67,7 +67,6 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
       videoPage += 1;
       print('videos.length = ${videos.length}');
     }
-
     yield ShowListState(photos: photos, videos: videos, mediaType: mediaType);
   }
 

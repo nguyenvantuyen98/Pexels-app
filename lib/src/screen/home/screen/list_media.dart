@@ -1,4 +1,3 @@
-import 'package:app/src/screen/home/bloc/loading_bloc.dart';
 import 'photo_widget.dart';
 import 'video_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +19,12 @@ class ListMedia extends StatefulWidget {
 class _ListMediaState extends State<ListMedia> {
   final _scrollController = ScrollController();
   MediaListBloc _mediaListBloc;
-  LoadingBloc _loadingBloc;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
     _mediaListBloc = BlocProvider.of<MediaListBloc>(context);
-    _loadingBloc = BlocProvider.of<LoadingBloc>(context);
   }
 
   @override
@@ -41,7 +38,6 @@ class _ListMediaState extends State<ListMedia> {
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll < 200) {
       _mediaListBloc.add(FetchDataEvent());
-      _loadingBloc.add(LoadingMoreDataEvent());
     }
   }
 

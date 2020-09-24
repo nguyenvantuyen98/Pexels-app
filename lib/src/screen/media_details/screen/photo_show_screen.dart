@@ -69,7 +69,7 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                   ),
                   height: 60,
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 10, left: 10),
+                    padding: const EdgeInsets.only(right: 20, left: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -103,7 +103,7 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                     ),
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 10, left: 10),
+                      padding: const EdgeInsets.only(right: 20, left: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,

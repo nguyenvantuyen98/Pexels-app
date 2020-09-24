@@ -1,4 +1,3 @@
-import 'package:app/src/screen/home/bloc/loading_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/media_list_bloc.dart';
@@ -31,9 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider<MediaListBloc>(
           create: (BuildContext context) => MediaListBloc(),
         ),
-        BlocProvider<LoadingBloc>(
-          create: (BuildContext context) => LoadingBloc(),
-        )
       ],
       child: Scaffold(
         appBar: buildSearchBar(_textEditingControler),
