@@ -25,6 +25,7 @@ class MediaDetail extends StatelessWidget {
   final String mediaType;
   final String mediaKey;
   MediaDetail(this.mediaType, this.mediaKey);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
