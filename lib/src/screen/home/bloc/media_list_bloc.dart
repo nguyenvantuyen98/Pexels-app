@@ -23,6 +23,7 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
 
   @override
   Stream<MediaListState> mapEventToState(MediaListEvent event) async* {
+    print(state.runtimeType);
     if (event is FetchDataEvent) {
       yield* _fetchingData(mediaType);
     }

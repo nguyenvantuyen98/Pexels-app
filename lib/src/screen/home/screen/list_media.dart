@@ -1,4 +1,6 @@
 import 'package:app/src/screen/home/bloc/loading_bloc.dart';
+import 'photo_widget.dart';
+import 'video_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/image.dart';
@@ -51,45 +53,30 @@ class _ListMediaState extends State<ListMedia> {
           _mediaListBloc.add(FetchDataEvent());
           return Center(child: CircularProgressIndicator());
         }
-        if (state is FetchingState) {
-          return Center(child: CircularProgressIndicator());
-        }
         if (state is ShowListState) {
-          return CustomScrollView(controller: _scrollController, slivers: [
-            SliverGrid.extent(
-              maxCrossAxisExtent: 650,
-              children: widget.mediaType == photoCode
-                  ? _builPhotoList(state.photos)
-                  : _buildVideoList(state.videos),
-            ),
-          ]);
+          return CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              SliverGrid.extent(
+                maxCrossAxisExtent: 650,
+                children: widget.mediaType == photoCode
+                    ? _builPhotoList(state.photos)
+                    : _buildVideoList(state.videos),
+              ),
+            ],
+          );
         }
-        return Center(
-          child: Text('Something wrong'),
-        );
+        return Container();
       },
     );
   }
 
   List<Widget> _builPhotoList(List<Photo> photos) {
-    List<GestureDetector> imagesList = [];
+    List<Widget> imagesList = [];
     for (Photo photo in photos) {
       imagesList.add(
-        GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, 'mediaDetail/$photoCode/${photo.id}');
-          },
-          child: Container(
-            child: Card(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-              ),
-              child: Image.network(photo.src.large, fit: BoxFit.cover),
-            ),
-          ),
+        PhotoWidget(
+          photo: photo,
         ),
       );
     }
@@ -97,25 +84,11 @@ class _ListMediaState extends State<ListMedia> {
   }
 
   List<Widget> _buildVideoList(List<Video> videos) {
-    List<GestureDetector> videosList = [];
+    List<Widget> videosList = [];
     for (Video video in videos) {
       videosList.add(
-        GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, 'mediaDetail/$videoCode/${video.id}');
-          },
-          child: Container(
-            child: Card(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-              ),
-              child: Image.network(video.videoPictures[0].picture,
-                  fit: BoxFit.cover),
-            ),
-          ),
+        VideoWidget(
+          video: video,
         ),
       );
     }

@@ -20,7 +20,7 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
     _controller = RubberAnimationController(
         vsync: this,
         halfBoundValue: AnimationControllerValue(percentage: 0.4),
-        upperBoundValue: AnimationControllerValue(percentage: 0.9),
+        upperBoundValue: AnimationControllerValue(percentage: 0.4),
         duration: Duration(milliseconds: 200),
         initialValue: 0.1);
     _controller.addStatusListener(_statusListener);
@@ -51,7 +51,79 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
   }
 
   Widget _getLowerLayer() {
-    return Center(child: Image.network(widget.state.photo.src.large));
+    return (widget.state.photo.width > widget.state.photo.height)
+        ? Container(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            child: Center(
+                child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.network(widget.state.photo.src.large),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10)),
+                  ),
+                  height: 60,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 10, left: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          widget.state.photo.photographer,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Icon(Icons.favorite_border)
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            )))
+        : SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                    padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                    child: Image.network(widget.state.photo.src.large)),
+                Container(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10)),
+                    ),
+                    height: 60,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10, left: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.state.photo.photographer,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Icon(Icons.favorite_border)
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                )
+              ],
+            ),
+          );
   }
 
   Widget _getUpperLayer() {

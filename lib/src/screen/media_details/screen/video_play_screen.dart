@@ -19,16 +19,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       widget.video,
     );
     _initializeVideoPlayerFuture = _controller.initialize();
-
     _controller.setLooping(true);
-
     super.initState();
   }
 
   @override
   void dispose() {
     _controller.dispose();
-
     super.dispose();
   }
 
