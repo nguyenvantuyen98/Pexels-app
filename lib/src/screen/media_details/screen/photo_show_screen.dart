@@ -1,5 +1,6 @@
 import 'package:app/src/models/image.dart';
 import 'package:app/src/screen/home/bloc/media_list_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rubber/rubber.dart';
 import '../bloc/media_detail_bloc.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10)),
                   ),
-                  height: 60,
+                  height: 70,
                   child: Padding(
                     padding: const EdgeInsets.only(right: 20, left: 20),
                     child: Row(
@@ -78,7 +79,18 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                           widget.state.photo.photographer,
                           style: TextStyle(fontSize: 20),
                         ),
-                        Icon(Icons.favorite_border)
+                        IconButton(
+                          icon: Icon(
+                            widget.state.photo.liked
+                                ? Icons.favorite_border
+                                : Icons.favorite_border,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            BlocProvider.of<MediaDetailBloc>(context)
+                                .add(LikedEvent(media: widget.state.photo));
+                          },
+                        )
                       ],
                     ),
                   ),
@@ -101,7 +113,7 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                           bottomLeft: Radius.circular(10),
                           bottomRight: Radius.circular(10)),
                     ),
-                    height: 60,
+                    height: 70,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20, left: 20),
                       child: Row(
@@ -112,7 +124,18 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                             widget.state.photo.photographer,
                             style: TextStyle(fontSize: 20),
                           ),
-                          Icon(Icons.favorite_border)
+                          IconButton(
+                            icon: Icon(
+                              widget.state.photo.liked
+                                  ? Icons.favorite_border
+                                  : Icons.favorite_border,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              BlocProvider.of<MediaDetailBloc>(context)
+                                  .add(LikedEvent(media: widget.state.photo));
+                            },
+                          )
                         ],
                       ),
                     ),

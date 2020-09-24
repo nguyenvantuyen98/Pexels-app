@@ -50,16 +50,12 @@ class _ListMediaState extends State<ListMedia> {
           return Center(child: CircularProgressIndicator());
         }
         if (state is ShowListState) {
-          return CustomScrollView(
+          return GridView.extent(
             controller: _scrollController,
-            slivers: [
-              SliverGrid.extent(
-                maxCrossAxisExtent: 650,
-                children: widget.mediaType == photoCode
-                    ? _builPhotoList(state.photos)
-                    : _buildVideoList(state.videos),
-              ),
-            ],
+            maxCrossAxisExtent: 650,
+            children: widget.mediaType == photoCode
+                ? _builPhotoList(state.photos)
+                : _buildVideoList(state.videos),
           );
         }
         return Container();

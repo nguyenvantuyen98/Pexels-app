@@ -64,15 +64,19 @@ class MediaRepository {
     return appNetwork.getVideo(videoKey);
   }
 
-  Future<void> insert(String id) {
+  Future<void> insert(int id) {
     return appDatabase.insertMediaData(id);
   }
 
-  Future<void> delete(String id) {
+  Future<void> delete(int id) {
     return appDatabase.deleteMediaData(id);
   }
 
-  Future<bool> isContain(String id) {
+  Future<bool> isContain(int id) {
     return appDatabase.isContain(id);
+  }
+
+  Future<List<int>> mediaData() {
+    return appDatabase.mediaData();
   }
 }

@@ -45,6 +45,13 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
 
       yield* _fetchingData(mediaType);
     }
+
+    if (event is LikedMediaEvent) {
+      await mediaRepository.insert(event.media.id);
+      print(await mediaRepository.mediaData());
+      photos = await checkFavoriteList(photos);
+      videos = await checkFavoriteList(videos);
+    }
   }
 
   void _resetData() {
@@ -67,6 +74,7 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
       videoPage += 1;
       print('videos.length = ${videos.length}');
     }
+    photos = await checkFavoriteList(photos);
     yield ShowListState(photos: photos, videos: videos, mediaType: mediaType);
   }
 
@@ -86,6 +94,14 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
         videoPage += 1;
       }
     }
+    videos = await checkFavoriteList(videos);
     yield ShowListState(photos: photos, videos: videos, mediaType: mediaType);
+  }
+
+  Future<List> checkFavoriteList(List mediaList) async {
+    for (int i = 0; i < mediaList.length; i++) {
+      mediaList[i].liked = await mediaRepository.isContain(mediaList[i].id);
+    }
+    return mediaList;
   }
 }

@@ -15,6 +15,11 @@ class InitialMediaDetailEvent extends MediaDetailEvent {
   InitialMediaDetailEvent({this.mediaType, this.mediaKey});
 }
 
+class LikedEvent extends MediaDetailEvent {
+  final media;
+  LikedEvent({this.media});
+}
+
 abstract class MediaDetailState extends Equatable {
   MediaDetailState();
   @override
@@ -53,6 +58,9 @@ class MediaDetailBloc extends Bloc<MediaDetailEvent, MediaDetailState> {
 
   @override
   Stream<MediaDetailState> mapEventToState(MediaDetailEvent event) async* {
+    if (event is LikedEvent) {
+      await mediaRepository.insert(event.media.id);
+    }
     if (event is InitialMediaDetailEvent) {
       yield LoadingMediaState();
       if (event.mediaType == '$photoCode') {

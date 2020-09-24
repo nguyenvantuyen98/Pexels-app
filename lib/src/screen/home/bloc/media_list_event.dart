@@ -55,3 +55,10 @@ class BackToShowListEvent extends MediaListEvent {
   @override
   List<Object> get props => [];
 }
+
+class LikedMediaEvent extends MediaListEvent {
+  final media;
+  LikedMediaEvent({this.media});
+  @override
+  List<Object> get props => [media];
+}

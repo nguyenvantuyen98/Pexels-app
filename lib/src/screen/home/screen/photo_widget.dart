@@ -1,3 +1,6 @@
+import 'package:app/src/screen/home/bloc/media_list_event.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../bloc/media_list_bloc.dart';
 import '../../../models/image.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +68,18 @@ class PhotoWidget extends StatelessWidget {
                       photo.photographer,
                       style: TextStyle(fontSize: 20),
                     ),
-                    Icon(Icons.favorite_border)
+                    IconButton(
+                      icon: Icon(
+                        photo.liked
+                            ? Icons.favorite_border
+                            : Icons.favorite_border,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        BlocProvider.of<MediaListBloc>(context)
+                            .add(LikedMediaEvent(media: photo));
+                      },
+                    )
                   ],
                 ),
               ),
