@@ -49,7 +49,7 @@ class MediaDetail extends StatelessWidget {
               state: state,
             );
           } else {
-            return VideoPlayerScreen(video: state.video.videoFiles[0].link);
+            return VideoPlayerScreen(state: state);
           }
         } else {
           return Text('Something wrong');

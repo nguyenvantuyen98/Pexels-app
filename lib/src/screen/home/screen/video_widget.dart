@@ -85,10 +85,16 @@ class VideoWidget extends StatelessWidget {
               ),
             ),
           ),
-          Icon(
-            Icons.play_circle_filled,
+          IconButton(
+            icon: Icon(
+              Icons.play_circle_filled,
+              size: 150,
+            ),
             color: Colors.white,
-            size: 150,
+            onPressed: () {
+              Navigator.pushNamed(
+                  context, 'mediaDetail/$videoCode/${video.id}');
+            },
           )
         ],
       ),

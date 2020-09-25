@@ -49,6 +49,10 @@ class _ListMediaState extends State<ListMedia> {
           _mediaListBloc.add(FetchDataEvent());
           return Center(child: CircularProgressIndicator());
         }
+        if (state is FetchingState) {
+          return Center(child: CircularProgressIndicator());
+        }
+
         if (state is ShowListState) {
           return GridView.extent(
             controller: _scrollController,

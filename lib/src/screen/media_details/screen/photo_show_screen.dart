@@ -96,54 +96,52 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
   }
 
   Widget buildHorizontalPhoto() {
-    return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.only(left: 10, right: 10),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.network(widget.state.photo.src.large),
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10)),
-                ),
-                height: 70,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.state.photo.photographer,
-                        style: TextStyle(fontSize: 20),
+    return Container(
+      padding: EdgeInsets.only(left: 10, right: 10),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.network(widget.state.photo.src.large),
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)),
+              ),
+              height: 70,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 20, left: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.state.photo.photographer,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        widget.state.photo.liked
+                            ? Icons.favorite_border
+                            : Icons.favorite_border,
+                        color: Colors.red,
                       ),
-                      IconButton(
-                        icon: Icon(
-                          widget.state.photo.liked
-                              ? Icons.favorite_border
-                              : Icons.favorite_border,
-                          color: Colors.red,
-                        ),
-                        onPressed: () {
-                          BlocProvider.of<MediaDetailBloc>(context)
-                              .add(LikedEvent(media: widget.state.photo));
-                        },
-                      )
-                    ],
-                  ),
+                      onPressed: () {
+                        BlocProvider.of<MediaDetailBloc>(context)
+                            .add(LikedEvent(media: widget.state.photo));
+                      },
+                    )
+                  ],
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+          ],
         ),
       ),
     );
