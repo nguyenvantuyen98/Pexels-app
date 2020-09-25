@@ -59,7 +59,14 @@ class MediaDetailBloc extends Bloc<MediaDetailEvent, MediaDetailState> {
   @override
   Stream<MediaDetailState> mapEventToState(MediaDetailEvent event) async* {
     if (event is LikedEvent) {
-      await mediaRepository.insert(event.media.id);
+      if (await mediaRepository.isContain(event.media.id)) {
+        await mediaRepository.delete(event.media.id);
+        print('deleted');
+      } else {
+        await mediaRepository.insert(event.media.id);
+        print('added');
+      }
+      yield ShowMediaState();
     }
     if (event is InitialMediaDetailEvent) {
       yield LoadingMediaState();

@@ -123,16 +123,18 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                       style: TextStyle(fontSize: 20),
                     ),
                     IconButton(
-                      icon: Icon(
-                        widget.state.photo.liked
-                            ? Icons.favorite_border
-                            : Icons.favorite_border,
-                        color: Colors.red,
-                      ),
                       onPressed: () {
                         BlocProvider.of<MediaDetailBloc>(context)
                             .add(LikedEvent(media: widget.state.photo));
+                        Future.delayed(Duration(milliseconds: 20));
+                        setState(() {});
                       },
+                      icon: Icon(
+                        widget.state.photo.liked
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Colors.red,
+                      ),
                     )
                   ],
                 ),
@@ -178,13 +180,15 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                     IconButton(
                       icon: Icon(
                         widget.state.photo.liked
-                            ? Icons.favorite_border
+                            ? Icons.favorite
                             : Icons.favorite_border,
                         color: Colors.red,
                       ),
                       onPressed: () {
                         BlocProvider.of<MediaDetailBloc>(context)
                             .add(LikedEvent(media: widget.state.photo));
+                        Future.delayed(Duration(milliseconds: 10));
+                        setState(() {});
                       },
                     ),
                   ],

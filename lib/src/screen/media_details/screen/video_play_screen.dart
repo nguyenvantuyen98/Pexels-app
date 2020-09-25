@@ -82,13 +82,15 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                       IconButton(
                         icon: Icon(
                           widget.state.video.liked
-                              ? Icons.favorite_border
+                              ? Icons.favorite
                               : Icons.favorite_border,
                           color: Colors.red,
                         ),
                         onPressed: () {
                           BlocProvider.of<MediaDetailBloc>(context)
                               .add(LikedEvent(media: widget.state.video));
+                          Future.delayed(Duration(milliseconds: 10));
+                          setState(() {});
                         },
                       ),
                     ],

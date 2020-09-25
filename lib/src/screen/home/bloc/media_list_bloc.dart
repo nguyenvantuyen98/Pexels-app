@@ -23,7 +23,6 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
 
   @override
   Stream<MediaListState> mapEventToState(MediaListEvent event) async* {
-    print(state.runtimeType);
     if (event is FetchDataEvent) {
       yield* _fetchingData(mediaType);
     }
@@ -47,10 +46,18 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
     }
 
     if (event is LikedMediaEvent) {
-      await mediaRepository.insert(event.media.id);
-      print(await mediaRepository.mediaData());
-      photos = await checkFavoriteList(photos);
-      videos = await checkFavoriteList(videos);
+      if (await mediaRepository.isContain(event.media.id)) {
+        await mediaRepository.delete(event.media.id);
+        print('deleted');
+        photos = await checkFavoriteList(photos);
+        videos = await checkFavoriteList(videos);
+      } else {
+        await mediaRepository.insert(event.media.id);
+        print('added');
+        photos = await checkFavoriteList(photos);
+        videos = await checkFavoriteList(videos);
+      }
+      ShowListState(photos: photos, videos: videos, mediaType: mediaType);
     }
   }
 
@@ -78,7 +85,7 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
             photos: photos,
             videos: videos,
             mediaType: mediaType,
-            reachMax: true);
+            reachedMax: true);
       } else {
         photos.addAll(nextPhotos);
         imagePage += 1;
@@ -101,7 +108,7 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
             photos: photos,
             videos: videos,
             mediaType: mediaType,
-            reachMax: true);
+            reachedMax: true);
       } else {
         videos.addAll(nextVideos);
         videoPage += 1;

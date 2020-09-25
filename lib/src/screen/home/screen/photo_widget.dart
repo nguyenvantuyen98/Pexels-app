@@ -5,9 +5,14 @@ import '../bloc/media_list_bloc.dart';
 import '../../../models/image.dart';
 import 'package:flutter/material.dart';
 
-class PhotoWidget extends StatelessWidget {
+class PhotoWidget extends StatefulWidget {
   final Photo photo;
   PhotoWidget({this.photo});
+  @override
+  _PhotoWidgetState createState() => _PhotoWidgetState();
+}
+
+class _PhotoWidgetState extends State<PhotoWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +34,7 @@ class PhotoWidget extends StatelessWidget {
             behavior: HitTestBehavior.translucent,
             onTap: () {
               Navigator.pushNamed(
-                  context, 'mediaDetail/$photoCode/${photo.id}');
+                  context, 'mediaDetail/$photoCode/${widget.photo.id}');
             },
             child: Container(
               child: Card(
@@ -39,7 +44,7 @@ class PhotoWidget extends StatelessWidget {
                     Radius.circular(10.0),
                   ),
                 ),
-                child: Image.network(photo.src.large, fit: BoxFit.cover),
+                child: Image.network(widget.photo.src.large, fit: BoxFit.cover),
               ),
             ),
           ),
@@ -65,20 +70,22 @@ class PhotoWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      photo.photographer,
+                      widget.photo.photographer,
                       style: TextStyle(fontSize: 20),
                     ),
                     IconButton(
+                      onPressed: () {
+                        BlocProvider.of<MediaListBloc>(context)
+                            .add(LikedMediaEvent(media: widget.photo));
+                        Future.delayed(Duration(milliseconds: 10));
+                        setState(() {});
+                      },
                       icon: Icon(
-                        photo.liked
-                            ? Icons.favorite_border
+                        widget.photo.liked
+                            ? Icons.favorite
                             : Icons.favorite_border,
                         color: Colors.red,
                       ),
-                      onPressed: () {
-                        BlocProvider.of<MediaListBloc>(context)
-                            .add(LikedMediaEvent(media: photo));
-                      },
                     )
                   ],
                 ),

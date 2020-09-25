@@ -5,9 +5,14 @@ import '../../../models/video.dart';
 import '../bloc/media_list_bloc.dart';
 import 'package:flutter/material.dart';
 
-class VideoWidget extends StatelessWidget {
+class VideoWidget extends StatefulWidget {
   final Video video;
   VideoWidget({this.video});
+  @override
+  _VideoWidgetState createState() => _VideoWidgetState();
+}
+
+class _VideoWidgetState extends State<VideoWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +33,7 @@ class VideoWidget extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.pushNamed(
-                  context, 'mediaDetail/$videoCode/${video.id}');
+                  context, 'mediaDetail/$videoCode/${widget.video.id}');
             },
             child: Container(
               child: Card(
@@ -38,7 +43,7 @@ class VideoWidget extends StatelessWidget {
                     Radius.circular(10.0),
                   ),
                 ),
-                child: Image.network(video.videoPictures[0].picture,
+                child: Image.network(widget.video.videoPictures[0].picture,
                     fit: BoxFit.cover),
               ),
             ),
@@ -65,19 +70,21 @@ class VideoWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      video.user.name,
+                      widget.video.user.name,
                       style: TextStyle(fontSize: 20),
                     ),
                     IconButton(
                       icon: Icon(
-                        video.liked
-                            ? Icons.favorite_border
+                        widget.video.liked
+                            ? Icons.favorite
                             : Icons.favorite_border,
                         color: Colors.red,
                       ),
                       onPressed: () {
                         BlocProvider.of<MediaListBloc>(context)
-                            .add(LikedMediaEvent(media: video));
+                            .add(LikedMediaEvent(media: widget.video));
+                        Future.delayed(Duration(milliseconds: 10));
+                        setState(() {});
                       },
                     )
                   ],
@@ -93,9 +100,9 @@ class VideoWidget extends StatelessWidget {
             color: Colors.white,
             onPressed: () {
               Navigator.pushNamed(
-                  context, 'mediaDetail/$videoCode/${video.id}');
+                  context, 'mediaDetail/$videoCode/${widget.video.id}');
             },
-          )
+          ),
         ],
       ),
     );
