@@ -15,7 +15,9 @@ class ShowListState extends MediaListState {
   final List<Photo> photos;
   final List<Video> videos;
   final int mediaType;
-  ShowListState({this.photos, this.videos, this.mediaType});
+  final bool reachMax;
+  ShowListState(
+      {this.photos, this.videos, this.mediaType, this.reachMax = false});
 }
 
 class FetchingState extends MediaListState {
@@ -24,4 +26,8 @@ class FetchingState extends MediaListState {
 
 class FetchingFailState extends MediaListState {
   FetchingFailState();
+}
+
+class NoMatchingResultState extends MediaListState {
+  NoMatchingResultState();
 }
