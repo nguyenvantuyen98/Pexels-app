@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-
 import 'image_src.dart';
 
 // ignore: must_be_immutable

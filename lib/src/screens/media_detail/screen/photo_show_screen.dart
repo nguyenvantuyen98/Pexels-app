@@ -1,5 +1,5 @@
-import 'package:app/src/models/image.dart';
-import 'package:app/src/screen/home/bloc/media_list_bloc.dart';
+import 'package:app/src/model/image.dart';
+import 'package:app/src/screens/home/bloc/media_list_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rubber/rubber.dart';
 import '../bloc/media_detail_bloc.dart';
@@ -187,8 +187,6 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                       onPressed: () {
                         BlocProvider.of<MediaDetailBloc>(context)
                             .add(LikedEvent(media: widget.state.photo));
-                        Future.delayed(Duration(milliseconds: 10));
-                        setState(() {});
                       },
                     ),
                   ],

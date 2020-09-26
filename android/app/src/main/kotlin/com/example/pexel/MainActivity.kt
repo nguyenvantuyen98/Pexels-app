@@ -1,4 +1,4 @@
-package com.vuongkhaituyen.pexels
+package com.example.pexel
 
 import io.flutter.embedding.android.FlutterActivity
 

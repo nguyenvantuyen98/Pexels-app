@@ -1,4 +1,4 @@
-import 'package:app/src/screen/media_details/bloc/media_detail_bloc.dart';
+import '../bloc/media_detail_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
@@ -89,8 +89,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         onPressed: () {
                           BlocProvider.of<MediaDetailBloc>(context)
                               .add(LikedEvent(media: widget.state.video));
-                          Future.delayed(Duration(milliseconds: 10));
-                          setState(() {});
                         },
                       ),
                     ],

@@ -1,7 +1,7 @@
-import 'package:app/src/data/database/app_database.dart';
-import 'package:app/src/data/network/app_network.dart';
-import 'package:app/src/models/image.dart';
-import 'package:app/src/models/video.dart';
+import '../../data/database/app_database.dart';
+import '../../data/network/app_network.dart';
+import '../../model/image.dart';
+import '../../model/video.dart';
 
 class MediaRepository {
   MediaRepository.privateConstructor();

@@ -1,11 +1,14 @@
-import 'package:app/src/models/video.dart';
-import 'package:app/src/models/image.dart';
+import '../../model/video.dart';
+import '../../model/image.dart';
 import 'package:dio/dio.dart';
 
+const apiKey1 = '563492ad6f9170000100000156d5de70ea134a2c86369c73c307839c';
+const apiKey2 = '563492ad6f917000010000011ccc9cd5a5ba4e709057142305ed8092';
+const apiKey3 = '563492ad6f91700001000001c83eda301ea54ebc9021cad92c12bb71';
+
 class AppNetwork {
-  static const per_page = 30;
-  static const authorization =
-      '563492ad6f9170000100000156d5de70ea134a2c86369c73c307839c';
+  static const per_page = 15;
+  static const authorization = apiKey1;
   final Dio dio = Dio()..options.headers['Authorization'] = authorization;
 
   Future<Map<String, dynamic>> _sendRequest(String url) async {
