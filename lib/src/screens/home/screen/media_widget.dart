@@ -5,17 +5,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/media_list_bloc.dart';
 import 'package:flutter/material.dart';
 
-class BuildMediaWidget extends StatelessWidget {
+class BuildMediaWidget extends StatefulWidget {
   final Photo photo;
   final Video video;
+  final int index;
 
-  const BuildMediaWidget({Key key, this.photo, this.video}) : super(key: key);
+  const BuildMediaWidget({Key key, this.photo, this.video, this.index})
+      : super(key: key);
 
   @override
+  _BuildMediaWidgetState createState() => _BuildMediaWidgetState();
+}
+
+class _BuildMediaWidgetState extends State<BuildMediaWidget> {
+  @override
   Widget build(BuildContext context) {
-    return (photo == null)
-        ? _buildVideoWidget(context, video)
-        : _buildImageWidget(context, photo);
+    return (widget.photo == null)
+        ? _buildVideoWidget(context, widget.video, widget.index)
+        : _buildImageWidget(context, widget.photo, widget.index);
   }
 }
 
@@ -24,7 +31,7 @@ class BuildMediaWidget extends StatelessWidget {
 // Image Widget
 //
 //*************************************************************
-Widget _buildImageWidget(BuildContext context, Photo photo) {
+Widget _buildImageWidget(BuildContext context, Photo photo, int index) {
   return Container(
     padding: EdgeInsets.only(top: 5, bottom: 20),
     decoration: BoxDecoration(
@@ -86,10 +93,12 @@ Widget _buildImageWidget(BuildContext context, Photo photo) {
                     onPressed: () {
                       BlocProvider.of<MediaListBloc>(context).add(
                           LikeMediaEvent(
-                              mediaTypeCode: photoCode, mediaID: photo.id));
+                              mediaTypeCode: photoCode,
+                              mediaID: photo.id,
+                              index: index));
                     },
                     icon: Icon(
-                      Icons.favorite_border,
+                      photo.liked ? Icons.favorite : Icons.favorite_border,
                       color: Colors.red,
                     ),
                   )
@@ -108,7 +117,7 @@ Widget _buildImageWidget(BuildContext context, Photo photo) {
 // Video Widget
 //
 //*************************************************************
-Widget _buildVideoWidget(BuildContext context, Video video) {
+Widget _buildVideoWidget(BuildContext context, Video video, int index) {
   return Container(
     padding: EdgeInsets.only(top: 5, bottom: 20),
     decoration: BoxDecoration(
@@ -174,7 +183,9 @@ Widget _buildVideoWidget(BuildContext context, Video video) {
                     onPressed: () {
                       BlocProvider.of<MediaListBloc>(context).add(
                           LikeMediaEvent(
-                              mediaTypeCode: videoCode, mediaID: video.id));
+                              mediaTypeCode: videoCode,
+                              mediaID: video.id,
+                              index: index));
                     },
                   )
                 ],
