@@ -18,3 +18,11 @@ class SearchMediaEvent extends MediaListEvent {
   @override
   List<Object> get props => [];
 }
+
+class LikeMediaEvent extends MediaListEvent {
+  final int mediaTypeCode;
+  final int mediaID;
+  LikeMediaEvent({this.mediaTypeCode, this.mediaID});
+  @override
+  List<Object> get props => [mediaTypeCode, mediaID];
+}
