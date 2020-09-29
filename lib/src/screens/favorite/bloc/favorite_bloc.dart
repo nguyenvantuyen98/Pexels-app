@@ -1,11 +1,17 @@
+import 'package:app/resource/resources.dart';
 import 'package:app/src/data/repository/media_repository.dart';
-import 'package:app/src/screens/home/bloc/media_list_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class FavoriteEvent {}
 
 class FavoriteFetchEvent extends FavoriteEvent {}
+
+class DislikeEvent extends FavoriteEvent {
+  final int mediaTypeCode;
+  final int mediaID;
+  DislikeEvent({this.mediaTypeCode, this.mediaID});
+}
 
 abstract class FavoriteState extends Equatable {
   const FavoriteState();
@@ -36,6 +42,10 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
 
   @override
   Stream<FavoriteState> mapEventToState(FavoriteEvent event) async* {
+    if (event is DislikeEvent) {
+      await mediaRepository.delete(event.mediaTypeCode, event.mediaID);
+      print('deteted');
+    }
     if (event is FavoriteFetchEvent) {
       try {
         var data = await mediaRepository.mediaData();

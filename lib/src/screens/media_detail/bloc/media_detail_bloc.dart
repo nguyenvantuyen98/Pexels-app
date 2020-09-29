@@ -1,7 +1,7 @@
+import 'package:app/resource/resources.dart';
 import 'package:app/src/data/repository/media_repository.dart';
 import 'package:app/src/model/image.dart';
 import 'package:app/src/model/video.dart';
-import 'package:app/src/screens/home/bloc/media_list_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,8 +1,8 @@
+import 'package:app/resource/resources.dart';
 import 'package:app/src/model/image.dart';
 import '../bloc/favorite_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'media_widget.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -35,13 +35,13 @@ class MediaFavoriteList extends StatelessWidget {
         }
         if (state is FavoriteFailureState) {
           return Center(
-            child: Text('failed to fetch MediaLists'),
+            child: Text(connectFail),
           );
         }
         if (state is FavoriteSuccessState) {
           if (state.mediaList.isEmpty) {
             return Center(
-              child: Text('no MediaLists'),
+              child: Text(noResult),
             );
           }
           return GridView.builder(
@@ -56,7 +56,7 @@ class MediaFavoriteList extends StatelessWidget {
           );
         } else
           return Center(
-            child: Text('Something wrong'),
+            child: Text(otherError),
           );
       },
     );

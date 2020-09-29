@@ -1,9 +1,9 @@
+import 'package:app/resource/resources.dart';
 import 'page_view_media.dart';
 import '../bloc/search_bloc.dart';
 import '../bloc/media_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: buildSearchBar(_textEditingControler),
         body: PageViewMedia(
           pageController: pageController,
-          callback: (index) => bottomSelected(index),
+          pageCallback: (index) => bottomSelected(index),
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: bottomNavigationIndex,
@@ -71,10 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
   List<BottomNavigationBarItem> buildBottomNavBarItems() {
     return [
       BottomNavigationBarItem(
-          icon: new Icon(Icons.photo_album), title: new Text('Photo')),
+          icon: new Icon(Icons.photo_album), title: new Text(photoString)),
       BottomNavigationBarItem(
         icon: new Icon(Icons.video_library),
-        title: new Text('Video'),
+        title: new Text(videoString),
       ),
     ];
   }

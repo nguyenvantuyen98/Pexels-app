@@ -1,3 +1,4 @@
+import 'package:app/resource/resources.dart';
 import 'package:app/src/model/image.dart';
 import 'package:app/src/model/video.dart';
 import '../bloc/media_list_event.dart';

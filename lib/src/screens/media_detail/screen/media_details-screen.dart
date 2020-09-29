@@ -1,5 +1,4 @@
-import 'package:app/src/screens/home/bloc/media_list_bloc.dart';
-
+import 'package:app/resource/resources.dart';
 import 'photo_show_screen.dart';
 import '../bloc/media_detail_bloc.dart';
 import 'video_play_screen.dart';
@@ -53,7 +52,7 @@ class MediaDetail extends StatelessWidget {
             return VideoPlayerScreen(state: state);
           }
         } else {
-          return Text('Something wrong');
+          return Text(otherError);
         }
       }),
     );

@@ -1,5 +1,5 @@
+import 'package:app/resource/resources.dart';
 import 'package:app/src/model/image.dart';
-import 'package:app/src/screens/home/screen/home_screen.dart';
 import '../bloc/media_list_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/media_list_event.dart';
@@ -9,54 +9,35 @@ import 'media_widget.dart';
 
 typedef void BottomNavigationIndex(int index);
 
-class PageViewMedia extends StatefulWidget {
+class PageViewMedia extends StatelessWidget {
   final PageController pageController;
-  final BottomNavigationIndex callback;
-  PageViewMedia({this.pageController, this.callback});
-
-  @override
-  _PageViewMediaState createState() => _PageViewMediaState();
-}
-
-class _PageViewMediaState extends State<PageViewMedia> {
-  double photoPagePosition = 0.0;
-  double videoPagePosition = 0.0;
-
+  final BottomNavigationIndex pageCallback;
+  PageViewMedia({this.pageController, this.pageCallback});
   @override
   Widget build(BuildContext context) {
     return PageView(
-      controller: widget.pageController,
+      controller: pageController,
       onPageChanged: (int page) {
         BlocProvider.of<MediaListBloc>(context)
             .add(MediaListTypeChangeEvent(mediaTypeCode: page));
-        widget.callback(page);
+        pageCallback(page);
       },
       children: [
         MediaPage(
           mediaTypeCode: photoCode,
-          callback: (position) {
-            photoPagePosition = position;
-            print('photo position is $position');
-          },
         ),
         MediaPage(
           mediaTypeCode: videoCode,
-          callback: (position) {
-            videoPagePosition = position;
-            print('video position is $position');
-          },
         ),
       ],
     );
   }
 }
 
-typedef void PositionCallback(double position);
-
 class MediaPage extends StatefulWidget {
   final int mediaTypeCode;
-  final PositionCallback callback;
-  MediaPage({this.mediaTypeCode, this.callback});
+
+  MediaPage({this.mediaTypeCode});
   @override
   _MediaPageState createState() => _MediaPageState();
 }
@@ -85,20 +66,20 @@ class _MediaPageState extends State<MediaPage> {
         }
         if (state is MediaListFailureState) {
           return Center(
-            child: Text('failed to fetch MediaLists'),
+            child: Text(connectFail),
           );
         }
         if (state is MediaListSuccessState) {
           if (widget.mediaTypeCode == photoCode) {
             if (state.photos.isEmpty) {
               return Center(
-                child: Text('no MediaLists'),
+                child: Text(noResult),
               );
             }
           } else {
             if (state.videos.isEmpty) {
               return Center(
-                child: Text('no MediaLists'),
+                child: Text(noResult),
               );
             }
           }
@@ -116,7 +97,7 @@ class _MediaPageState extends State<MediaPage> {
                 );
         } else
           return Center(
-            child: Text('Something wrong'),
+            child: Text(otherError),
           );
       },
     );
@@ -131,7 +112,7 @@ class _MediaPageState extends State<MediaPage> {
   void _onScroll() {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
-    widget.callback(currentScroll);
+
     if (maxScroll - currentScroll <= _scrollThreshold) {
       _mediaListBloc.add(MediaListFetchedEvent());
     }
