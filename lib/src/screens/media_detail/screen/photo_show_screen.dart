@@ -118,14 +118,27 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      widget.state.photo.photographer,
-                      style: TextStyle(fontSize: 20),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.state.photo.photographer,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                            'Size: ${widget.state.photo.width} x ${widget.state.photo.height}')
+                      ],
                     ),
                     IconButton(
                       onPressed: () {
-                        BlocProvider.of<MediaDetailBloc>(context)
-                            .add(LikedEvent(media: widget.state.photo));
+                        BlocProvider.of<MediaDetailBloc>(context).add(
+                            LikedEvent(
+                                mediaTypeCode: photoCode,
+                                mediaID: widget.state.photo.id));
                       },
                       icon: Icon(
                         widget.state.photo.liked
@@ -171,9 +184,18 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      widget.state.photo.photographer,
-                      style: TextStyle(fontSize: 20),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.state.photo.photographer,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                            'Size: ${widget.state.photo.width} x ${widget.state.photo.height}')
+                      ],
                     ),
                     IconButton(
                       icon: Icon(
@@ -183,8 +205,10 @@ class _PhotoShowScreenState extends State<PhotoShowScreen>
                         color: Colors.red,
                       ),
                       onPressed: () {
-                        BlocProvider.of<MediaDetailBloc>(context)
-                            .add(LikedEvent(media: widget.state.photo));
+                        BlocProvider.of<MediaDetailBloc>(context).add(
+                            LikedEvent(
+                                mediaTypeCode: photoCode,
+                                mediaID: widget.state.photo.id));
                       },
                     ),
                   ],

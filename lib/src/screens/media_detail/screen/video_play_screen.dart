@@ -1,3 +1,5 @@
+import 'package:app/resource/resources.dart';
+
 import '../bloc/media_detail_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,9 +77,18 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        widget.state.video.user.name,
-                        style: TextStyle(fontSize: 20),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.state.video.user.name,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                              'Length: ${widget.state.video.videoFiles.length}s')
+                        ],
                       ),
                       IconButton(
                         icon: Icon(
@@ -87,8 +98,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                           color: Colors.red,
                         ),
                         onPressed: () {
-                          BlocProvider.of<MediaDetailBloc>(context)
-                              .add(LikedEvent(media: widget.state.video));
+                          BlocProvider.of<MediaDetailBloc>(context).add(
+                              LikedEvent(
+                                  mediaTypeCode: videoCode,
+                                  mediaID: widget.state.video.id));
                         },
                       ),
                     ],

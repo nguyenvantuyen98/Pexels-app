@@ -14,7 +14,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
         body: BlocProvider(
           create: (BuildContext context) =>
               FavoriteBloc()..add(FavoriteFetchEvent()),

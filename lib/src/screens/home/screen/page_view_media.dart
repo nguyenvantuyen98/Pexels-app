@@ -25,9 +25,11 @@ class PageViewMedia extends StatelessWidget {
       children: [
         MediaPage(
           mediaTypeCode: photoCode,
+          key: PageStorageKey('photo'),
         ),
         MediaPage(
           mediaTypeCode: videoCode,
+          key: PageStorageKey('video'),
         ),
       ],
     );
@@ -36,15 +38,14 @@ class PageViewMedia extends StatelessWidget {
 
 class MediaPage extends StatefulWidget {
   final int mediaTypeCode;
-
-  MediaPage({this.mediaTypeCode});
+  MediaPage({this.mediaTypeCode, Key key}) : super(key: key);
   @override
   _MediaPageState createState() => _MediaPageState();
 }
 
 class _MediaPageState extends State<MediaPage> {
   ScrollController _scrollController = ScrollController();
-  final _scrollThreshold = 200.0;
+  final _scrollThreshold = 300.0;
   MediaListBloc _mediaListBloc;
 
   @override
@@ -123,16 +124,10 @@ class BuildMediaListWidget extends StatelessWidget {
   final List mediaList;
   final bool hasReachedMax;
   final ScrollController scrollController;
-  final double position;
   BuildMediaListWidget(
-      {this.mediaList,
-      this.hasReachedMax,
-      this.scrollController,
-      this.position});
+      {this.mediaList, this.hasReachedMax, this.scrollController});
   @override
   Widget build(BuildContext context) {
-    if (position != null && scrollController.hasClients)
-      scrollController.jumpTo(position);
     if (mediaList[0] is Photo) {
       return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -16,8 +16,9 @@ class InitialMediaDetailEvent extends MediaDetailEvent {
 }
 
 class LikedEvent extends MediaDetailEvent {
-  final media;
-  LikedEvent({this.media});
+  final int mediaTypeCode;
+  final int mediaID;
+  LikedEvent({this.mediaTypeCode, this.mediaID});
 }
 
 abstract class MediaDetailState extends Equatable {
@@ -58,7 +59,13 @@ class MediaDetailBloc extends Bloc<MediaDetailEvent, MediaDetailState> {
 
   @override
   Stream<MediaDetailState> mapEventToState(MediaDetailEvent event) async* {
-    if (event is LikedEvent) {}
+    if (event is LikedEvent) {
+      if (await mediaRepository.isContain(event.mediaTypeCode, event.mediaID)) {
+        await mediaRepository.delete(event.mediaTypeCode, event.mediaID);
+      } else {
+        await mediaRepository.insert(event.mediaTypeCode, event.mediaID);
+      }
+    }
     if (event is InitialMediaDetailEvent) {
       yield LoadingMediaState();
       if (event.mediaType == '$photoCode') {
