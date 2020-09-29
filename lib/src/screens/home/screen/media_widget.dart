@@ -5,24 +5,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/media_list_bloc.dart';
 import 'package:flutter/material.dart';
 
-class BuildMediaWidget extends StatefulWidget {
+class BuildMediaWidget extends StatelessWidget {
   final Photo photo;
   final Video video;
   final int index;
-
   const BuildMediaWidget({Key key, this.photo, this.video, this.index})
       : super(key: key);
-
-  @override
-  _BuildMediaWidgetState createState() => _BuildMediaWidgetState();
-}
-
-class _BuildMediaWidgetState extends State<BuildMediaWidget> {
   @override
   Widget build(BuildContext context) {
-    return (widget.photo == null)
-        ? _buildVideoWidget(context, widget.video, widget.index)
-        : _buildImageWidget(context, widget.photo, widget.index);
+    return (photo == null)
+        ? _buildVideoWidget(context, video, index)
+        : _buildImageWidget(context, photo, index);
   }
 }
 
@@ -150,6 +143,24 @@ Widget _buildVideoWidget(BuildContext context, Video video, int index) {
             ),
           ),
         ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            IconButton(
+              iconSize: 150,
+              icon: Icon(
+                Icons.play_circle_filled,
+              ),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.pushNamed(
+                    context, 'mediaDetail/$videoCode/${video.id}');
+              },
+            ),
+            SizedBox(height: 70),
+          ],
+        ),
         Positioned(
           bottom: 0,
           left: 0,
@@ -193,16 +204,6 @@ Widget _buildVideoWidget(BuildContext context, Video video, int index) {
             ),
           ),
         ),
-        // IconButton(
-        //   icon: Icon(
-        //     Icons.play_circle_filled,
-        //     size: 150,
-        //   ),
-        //   color: Colors.white,
-        //   onPressed: () {
-        //     Navigator.pushNamed(context, 'mediaDetail/$videoCode/${video.id}');
-        //   },
-        // ),
       ],
     ),
   );

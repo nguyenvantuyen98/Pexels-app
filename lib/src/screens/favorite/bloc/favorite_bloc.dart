@@ -49,7 +49,6 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
             mediaList.add(media);
           }
         }
-        print(mediaList);
 
         yield FavoriteSuccessState(mediaList: mediaList);
       } catch (_) {

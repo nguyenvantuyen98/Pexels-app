@@ -1,4 +1,5 @@
 import 'package:app/src/model/image.dart';
+import 'package:app/src/screens/home/screen/home_screen.dart';
 import '../bloc/media_list_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/media_list_event.dart';
@@ -6,29 +7,56 @@ import '../bloc/media_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'media_widget.dart';
 
-class PageViewMedia extends StatelessWidget {
-  final PageStorageBucket _bucket = PageStorageBucket();
+typedef void BottomNavigationIndex(int index);
+
+class PageViewMedia extends StatefulWidget {
+  final PageController pageController;
+  final BottomNavigationIndex callback;
+  PageViewMedia({this.pageController, this.callback});
+
+  @override
+  _PageViewMediaState createState() => _PageViewMediaState();
+}
+
+class _PageViewMediaState extends State<PageViewMedia> {
+  double photoPagePosition = 0.0;
+  double videoPagePosition = 0.0;
+
   @override
   Widget build(BuildContext context) {
-    return PageStorage(
-      bucket: _bucket,
-      child: PageView(
-        onPageChanged: (int page) {
-          BlocProvider.of<MediaListBloc>(context)
-              .add(MediaListTypeChangeEvent(mediaTypeCode: page));
-        },
-        children: [
-          MediaPage(mediaTypeCode: photoCode, key: PageStorageKey('photo')),
-          MediaPage(mediaTypeCode: videoCode, key: PageStorageKey('video')),
-        ],
-      ),
+    return PageView(
+      controller: widget.pageController,
+      onPageChanged: (int page) {
+        BlocProvider.of<MediaListBloc>(context)
+            .add(MediaListTypeChangeEvent(mediaTypeCode: page));
+        widget.callback(page);
+      },
+      children: [
+        MediaPage(
+          mediaTypeCode: photoCode,
+          callback: (position) {
+            photoPagePosition = position;
+            print('photo position is $position');
+          },
+        ),
+        MediaPage(
+          mediaTypeCode: videoCode,
+          callback: (position) {
+            videoPagePosition = position;
+            print('video position is $position');
+          },
+        ),
+      ],
     );
   }
 }
 
+typedef void PositionCallback(double position);
+
 class MediaPage extends StatefulWidget {
   final int mediaTypeCode;
-  MediaPage({this.mediaTypeCode, Key key}) : super(key: key);
+  final PositionCallback callback;
+  MediaPage({this.mediaTypeCode, this.callback});
   @override
   _MediaPageState createState() => _MediaPageState();
 }
@@ -103,6 +131,7 @@ class _MediaPageState extends State<MediaPage> {
   void _onScroll() {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
+    widget.callback(currentScroll);
     if (maxScroll - currentScroll <= _scrollThreshold) {
       _mediaListBloc.add(MediaListFetchedEvent());
     }
@@ -113,10 +142,16 @@ class BuildMediaListWidget extends StatelessWidget {
   final List mediaList;
   final bool hasReachedMax;
   final ScrollController scrollController;
+  final double position;
   BuildMediaListWidget(
-      {this.mediaList, this.hasReachedMax, this.scrollController});
+      {this.mediaList,
+      this.hasReachedMax,
+      this.scrollController,
+      this.position});
   @override
   Widget build(BuildContext context) {
+    if (position != null && scrollController.hasClients)
+      scrollController.jumpTo(position);
     if (mediaList[0] is Photo) {
       return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -61,7 +61,7 @@ class MediaListBloc extends Bloc<MediaListEvent, MediaListState> {
               photos: nextPhotos,
               videos: nextVideos,
               hasReachedMax: false,
-              restart: false);
+              restart: true);
           photos.addAll(nextPhotos);
           videos.addAll(nextVideos);
 

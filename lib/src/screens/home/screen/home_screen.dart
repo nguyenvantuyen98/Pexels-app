@@ -13,6 +13,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _textEditingControler;
+
+  PageController pageController = PageController(
+    initialPage: 0,
+    keepPage: true,
+  );
+  int bottomNavigationIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -32,14 +39,43 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       child: Scaffold(
         appBar: buildSearchBar(_textEditingControler),
-        body: PageViewMedia(),
+        body: PageViewMedia(
+          pageController: pageController,
+          callback: (index) => bottomSelected(index),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: bottomNavigationIndex,
+          items: buildBottomNavBarItems(),
+          onTap: (index) => {
+            pageController.animateToPage(index,
+                duration: Duration(milliseconds: 500), curve: Curves.ease),
+            bottomSelected(index)
+          },
+        ),
       ),
     );
+  }
+
+  void bottomSelected(int index) {
+    setState(() {
+      bottomNavigationIndex = index;
+    });
   }
 
   @override
   void dispose() {
     _textEditingControler.dispose();
     super.dispose();
+  }
+
+  List<BottomNavigationBarItem> buildBottomNavBarItems() {
+    return [
+      BottomNavigationBarItem(
+          icon: new Icon(Icons.photo_album), title: new Text('Photo')),
+      BottomNavigationBarItem(
+        icon: new Icon(Icons.video_library),
+        title: new Text('Video'),
+      ),
+    ];
   }
 }
