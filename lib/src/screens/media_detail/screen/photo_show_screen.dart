@@ -1,6 +1,8 @@
 import 'package:app/resource/resources.dart';
 import 'package:app/src/model/image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc/media_detail_event.dart';
+import '../bloc/media_detail_state.dart';
 import 'package:rubber/rubber.dart';
 import '../bloc/media_detail_bloc.dart';
 import 'package:flutter/material.dart';

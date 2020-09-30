@@ -1,4 +1,6 @@
 import 'package:app/resource/resources.dart';
+import '../bloc/media_detail_event.dart';
+import '../bloc/media_detail_state.dart';
 import 'photo_show_screen.dart';
 import '../bloc/media_detail_bloc.dart';
 import 'video_play_screen.dart';

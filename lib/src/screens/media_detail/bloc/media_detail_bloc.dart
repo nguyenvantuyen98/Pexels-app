@@ -2,56 +2,10 @@ import 'package:app/resource/resources.dart';
 import 'package:app/src/data/repository/media_repository.dart';
 import 'package:app/src/model/image.dart';
 import 'package:app/src/model/video.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-abstract class MediaDetailEvent {
-  MediaDetailEvent();
-}
-
-class InitialMediaDetailEvent extends MediaDetailEvent {
-  final String mediaType;
-  final String mediaKey;
-  InitialMediaDetailEvent({this.mediaType, this.mediaKey});
-}
-
-class LikedEvent extends MediaDetailEvent {
-  final int mediaTypeCode;
-  final int mediaID;
-  LikedEvent({this.mediaTypeCode, this.mediaID});
-}
-
-abstract class MediaDetailState extends Equatable {
-  MediaDetailState();
-  @override
-  List<Object> get props => [];
-}
-
-class InitialMediaDetailState extends MediaDetailState {
-  InitialMediaDetailState();
-}
-
-class LoadingMediaState extends MediaDetailState {
-  LoadingMediaState();
-}
-
-class LoadingFailMediaState extends MediaDetailState {
-  LoadingFailMediaState();
-}
-
-class ShowMediaState extends MediaDetailState {
-  final int mediaType;
-  final Photo photo;
-  final Video video;
-  final List<Photo> relatedPhoto;
-  final List<Video> relatedVideo;
-  ShowMediaState(
-      {this.mediaType,
-      this.photo,
-      this.video,
-      this.relatedPhoto,
-      this.relatedVideo});
-}
+import 'media_detail_event.dart';
+import 'media_detail_state.dart';
 
 class MediaDetailBloc extends Bloc<MediaDetailEvent, MediaDetailState> {
   MediaDetailBloc() : super(InitialMediaDetailState());
