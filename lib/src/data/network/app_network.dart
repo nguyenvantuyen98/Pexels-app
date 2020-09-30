@@ -4,7 +4,6 @@ import '../../model/image.dart';
 import 'package:dio/dio.dart';
 
 class AppNetwork {
-  static const per_page = 15;
   static const authorization = apiKey1;
   final Dio dio = Dio()..options.headers['Authorization'] = authorization;
 

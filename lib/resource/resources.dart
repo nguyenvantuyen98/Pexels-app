@@ -10,3 +10,5 @@ const String otherError = 'Something wrong';
 
 const String photoString = 'Photo';
 const String videoString = 'Video';
+
+const per_page = 15;
