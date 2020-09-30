@@ -1,6 +1,7 @@
 import 'package:app/resource/resources.dart';
 import 'package:app/src/model/image.dart';
 import 'package:app/src/model/video.dart';
+import '../bloc/favorite_event.dart';
 import '../bloc/favorite_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

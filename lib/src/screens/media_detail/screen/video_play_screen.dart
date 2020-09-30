@@ -1,4 +1,6 @@
 import 'package:app/resource/resources.dart';
+import '../bloc/media_detail_event.dart';
+import '../bloc/media_detail_state.dart';
 import '../bloc/media_detail_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
