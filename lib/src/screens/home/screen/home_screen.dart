@@ -70,11 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<BottomNavigationBarItem> buildBottomNavBarItems() {
     return [
+      BottomNavigationBarItem(icon: Icon(Icons.photo_album), label: photoString),
       BottomNavigationBarItem(
-          icon: new Icon(Icons.photo_album), title: new Text(photoString)),
-      BottomNavigationBarItem(
-        icon: new Icon(Icons.video_library),
-        title: new Text(videoString),
+        icon: Icon(Icons.video_library),
+        label: videoString,
       ),
     ];
   }

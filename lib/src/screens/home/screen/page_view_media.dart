@@ -18,8 +18,7 @@ class PageViewMedia extends StatelessWidget {
     return PageView(
       controller: pageController,
       onPageChanged: (int page) {
-        BlocProvider.of<MediaListBloc>(context)
-            .add(MediaListTypeChangeEvent(mediaTypeCode: page));
+        BlocProvider.of<MediaListBloc>(context).add(MediaListTypeChangeEvent(mediaTypeCode: page));
         pageCallback(page);
       },
       children: [
@@ -57,7 +56,8 @@ class _MediaPageState extends State<MediaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MediaListBloc, MediaListState>(
+    return BlocConsumer<MediaListBloc, MediaListState>(
+      listener: (context, state) {},
       builder: (context, state) {
         if (state is MediaListInitialState) {
           _mediaListBloc.add(MediaListFetchedEvent());
@@ -124,8 +124,7 @@ class BuildMediaListWidget extends StatelessWidget {
   final List mediaList;
   final bool hasReachedMax;
   final ScrollController scrollController;
-  BuildMediaListWidget(
-      {this.mediaList, this.hasReachedMax, this.scrollController});
+  BuildMediaListWidget({this.mediaList, this.hasReachedMax, this.scrollController});
   @override
   Widget build(BuildContext context) {
     if (mediaList[0] is Photo) {

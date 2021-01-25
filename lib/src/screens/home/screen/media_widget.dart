@@ -10,8 +10,7 @@ class BuildMediaWidget extends StatelessWidget {
   final Photo photo;
   final Video video;
   final int index;
-  const BuildMediaWidget({Key key, this.photo, this.video, this.index})
-      : super(key: key);
+  const BuildMediaWidget({Key key, this.photo, this.video, this.index}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return (photo == null)
@@ -85,11 +84,8 @@ Widget _buildImageWidget(BuildContext context, Photo photo, int index) {
                   ),
                   IconButton(
                     onPressed: () {
-                      BlocProvider.of<MediaListBloc>(context).add(
-                          LikeMediaEvent(
-                              mediaTypeCode: photoCode,
-                              mediaID: photo.id,
-                              index: index));
+                      BlocProvider.of<MediaListBloc>(context).add(LikeMediaEvent(
+                          mediaTypeCode: photoCode, mediaID: photo.id, index: index));
                     },
                     icon: Icon(
                       photo.liked ? Icons.favorite : Icons.favorite_border,
@@ -139,8 +135,7 @@ Widget _buildVideoWidget(BuildContext context, Video video, int index) {
                   Radius.circular(10.0),
                 ),
               ),
-              child: Image.network(video.videoPictures[0].picture,
-                  fit: BoxFit.cover),
+              child: Image.network(video.videoPictures[0].picture, fit: BoxFit.cover),
             ),
           ),
         ),
@@ -155,8 +150,7 @@ Widget _buildVideoWidget(BuildContext context, Video video, int index) {
               ),
               color: Colors.white,
               onPressed: () {
-                Navigator.pushNamed(
-                    context, 'mediaDetail/$videoCode/${video.id}');
+                Navigator.pushNamed(context, 'mediaDetail/$videoCode/${video.id}');
               },
             ),
             SizedBox(height: 70),
@@ -193,11 +187,8 @@ Widget _buildVideoWidget(BuildContext context, Video video, int index) {
                       color: Colors.red,
                     ),
                     onPressed: () {
-                      BlocProvider.of<MediaListBloc>(context).add(
-                          LikeMediaEvent(
-                              mediaTypeCode: videoCode,
-                              mediaID: video.id,
-                              index: index));
+                      BlocProvider.of<MediaListBloc>(context).add(LikeMediaEvent(
+                          mediaTypeCode: videoCode, mediaID: video.id, index: index));
                     },
                   )
                 ],

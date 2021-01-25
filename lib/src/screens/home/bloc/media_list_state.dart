@@ -20,8 +20,7 @@ class MediaListSuccessState extends MediaListState {
 
   const MediaListSuccessState({this.photos, this.videos, this.hasReachedMax});
 
-  MediaListSuccessState copyWith(
-      {List<Photo> photos, List<Video> videos, bool hasReachedMax}) {
+  MediaListSuccessState copyWith({List<Photo> photos, List<Video> videos, bool hasReachedMax}) {
     return MediaListSuccessState(
         photos: photos ?? this.photos,
         videos: videos ?? this.videos,
