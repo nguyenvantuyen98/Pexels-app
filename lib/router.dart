@@ -1,12 +1,12 @@
 import 'package:app/src/screens/favorite/screen/favorite_screen.dart';
+import 'package:flutter/material.dart';
 
 import 'src/screens/home/screen/home_screen.dart';
 import 'src/screens/media_detail/screen/media_details-screen.dart';
 import 'package:fluro/fluro.dart' as fl;
-import 'package:flutter/material.dart';
 
 class FluroRouter {
-  static fl.Router router = fl.Router();
+  static fl.FluroRouter router = fl.FluroRouter();
 
   static fl.Handler _homeHandler =
       fl.Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => HomeScreen());
