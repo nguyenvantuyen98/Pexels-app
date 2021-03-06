@@ -13,7 +13,7 @@ AppBar buildSearchBar(TextEditingController textEditingControler) {
         if (state is InitialSearchState) {
           return Row(
             children: [
-              OutlineButton(
+              OutlinedButton(
                 child: Text('Favorite'),
                 onPressed: () => Navigator.pushNamed(context, 'favorite'),
               ),

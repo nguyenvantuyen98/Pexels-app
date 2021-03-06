@@ -15,7 +15,7 @@ dependencies:
   pedantic: ^1.9.0
   dio: ^3.0.10
   equatable: ^1.2.5
-  flutter_bloc: ^6.0.5
+  flutter_bloc: ^6.1.0
   fluro: ^1.6.3
   video_player: ^0.10.12+3
   rubber: ^0.4.0

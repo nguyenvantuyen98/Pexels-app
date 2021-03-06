@@ -12,3 +12,7 @@ pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
+ios/Flutter/.last_build_id
+ios/Podfile.lock
+.packages
+pubspec.lock
